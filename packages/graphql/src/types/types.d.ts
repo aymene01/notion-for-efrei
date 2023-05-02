@@ -12,6 +12,11 @@ export type Scalars = {
   Float: number;
 };
 
+export type Hello = {
+  __typename?: 'Hello';
+  message: Scalars['String'];
+};
+
 export type Meta = {
   __typename?: 'Meta';
   token: Scalars['String'];
@@ -38,7 +43,7 @@ export type MutationCreateSessionArgs = {
 
 export type Query = {
   __typename?: 'Query';
-  hello?: Maybe<Scalars['String']>;
+  hello: Hello;
 };
 
 export type User = {

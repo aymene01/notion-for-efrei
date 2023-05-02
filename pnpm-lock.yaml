@@ -77,8 +77,11 @@ importers:
   apps/web:
     specifiers:
       '@chakra-ui/react': ^2.6.0
+      '@efrei/graphql': '*'
       '@emotion/react': ^11.10.8
       '@emotion/styled': ^11.10.8
+      '@tanstack/react-query': ^4.29.5
+      '@types/lodash': ^4.14.194
       '@types/node': 18.16.3
       '@types/react': 18.2.0
       '@types/react-dom': 18.2.1
@@ -86,6 +89,8 @@ importers:
       eslint: ^7.32.0
       eslint-config-next: 13.3.4
       framer-motion: ^10.12.5
+      graphql-request: ^6.0.0
+      lodash: ^4.17.21
       next: 13.3.4
       postcss: 8.4.23
       react: 18.2.0
@@ -95,8 +100,10 @@ importers:
       typescript: ^4.9.5
     dependencies:
       '@chakra-ui/react': 2.6.0_uvneuqmd3ogi72g64mex6m6xoi
+      '@efrei/graphql': link:../../packages/graphql
       '@emotion/react': 11.10.8_3mjolpizrsjgnt7s4ahgoveqvu
       '@emotion/styled': 11.10.8_47zspfu3r4q74llkzwrvdmry34
+      '@tanstack/react-query': 4.29.5_biqbaboplfbrettd7655fr4n2y
       '@types/node': 18.16.3
       '@types/react': 18.2.0
       '@types/react-dom': 18.2.1
@@ -104,6 +111,8 @@ importers:
       eslint: 7.32.0
       eslint-config-next: 13.3.4_jofidmxrjzhj7l6vknpw5ecvfe
       framer-motion: 10.12.5_biqbaboplfbrettd7655fr4n2y
+      graphql-request: 6.0.0_graphql@16.6.0
+      lodash: 4.17.21
       next: 13.3.4_biqbaboplfbrettd7655fr4n2y
       postcss: 8.4.23
       react: 18.2.0
@@ -111,6 +120,8 @@ importers:
       react-hot-toast: 2.4.1_s7mghcr6idhb4d5ook54gl4n44
       tailwindcss: 3.3.2
       typescript: 4.9.5
+    devDependencies:
+      '@types/lodash': 4.14.194
 
   packages/graphql:
     specifiers: {}
@@ -3354,6 +3365,28 @@ packages:
       tslib: 2.5.0
     dev: false
 
+  /@tanstack/query-core/4.29.5:
+    resolution: {integrity: sha512-xXIiyQ/4r9KfaJ3k6kejqcaqFXXBTzN2aOJ5H1J6aTJE9hl/nbgAdfF6oiIu0CD5xowejJEJ6bBg8TO7BN4NuQ==}
+    dev: false
+
+  /@tanstack/react-query/4.29.5_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-F87cibC3s3eG0Q90g2O+hqntpCrudKFnR8P24qkH9uccEhXErnJxBC/AAI4cJRV2bfMO8IeGZQYf3WyYgmSg0w==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@tanstack/query-core': 4.29.5
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      use-sync-external-store: 1.2.0_react@18.2.0
+    dev: false
+
   /@tootallnate/once/2.0.0:
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
     engines: {node: '>= 10'}
@@ -4490,7 +4523,6 @@ packages:
       node-fetch: 2.6.7
     transitivePeerDependencies:
       - encoding
-    dev: true
 
   /cross-spawn/5.1.0:
     resolution: {integrity: sha512-pTgQJ5KC0d2hcY8eyL1IzlBPYjTkyH72XRZPnLyKus2mBfNjQs3klqbJU2VILqZryAZUt9JOb3h/mWMy23/f5A==}
@@ -5817,7 +5849,6 @@ packages:
       graphql: 16.6.0
     transitivePeerDependencies:
       - encoding
-    dev: true
 
   /graphql-tag/2.12.6_graphql@16.6.0:
     resolution: {integrity: sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==}
@@ -6905,7 +6936,6 @@ packages:
         optional: true
     dependencies:
       whatwg-url: 5.0.0
-    dev: true
 
   /node-fetch/2.6.9:
     resolution: {integrity: sha512-DJm/CJkZkRjKKj4Zi4BsKVZh3ValV5IR5s7LVZnW+6YMh0W1BfNA8XSs6DLMGYlId5F3KnA70uu2qepcR08Qqg==}
@@ -8810,6 +8840,14 @@ packages:
       detect-node-es: 1.1.0
       react: 18.2.0
       tslib: 2.5.0
+    dev: false
+
+  /use-sync-external-store/1.2.0_react@18.2.0:
+    resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /util-deprecate/1.0.2:

@@ -14,8 +14,12 @@ type UserAuthenticated {
   meta: Meta!
 }
 
+type Hello {
+  message: String!
+}
+
 type Query {
-  hello: String
+  hello: Hello!
 }
 
 type Mutation {
