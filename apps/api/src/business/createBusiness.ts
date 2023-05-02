@@ -1,7 +1,7 @@
 import { Options } from './types'
 
 export const createBusiness = (opts: Options) => {
-	return {}
+  return {}
 }
 
 export type Business = ReturnType<typeof createBusiness>

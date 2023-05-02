@@ -2,15 +2,15 @@ import { getListenAddr, getString, getBoolean, getEnum, getNumber } from '@efrei
 import path from 'path'
 
 export const GRAPHQL_SCHEMA_PATH = path.resolve(
-	__dirname,
-	'..',
-	'..',
-	'..',
-	'..',
-	'packages',
-	'graphql',
-	'src',
-	'schema.graphql',
+  __dirname,
+  '..',
+  '..',
+  '..',
+  '..',
+  'packages',
+  'graphql',
+  'src',
+  'schema.graphql',
 )
 export const ENVIRONMENT = getString('ENVIRONMENT', 'local')
 export const DATABASE_URL = getString('DATABASE_URL', 'postgres://user:password@localhost:5432/database')

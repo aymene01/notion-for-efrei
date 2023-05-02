@@ -6,18 +6,17 @@
 			"outputs": [".next/**", "!.next/cache/**"],
 			"dependsOn": ["lint", "test"]
 		},
-		"lint": {},
+		"lint": {
+			"cache": true
+		},
 		"dev": {
-			"cache": false,
-			"persistent": true
+			"cache": false
 		},
 		"test": {
-			"cache": true,
-			"persistent": true
+			"cache": true
 		},
 		"typecheck": {
-			"cache": true,
-			"persistent": true
+			"cache": true
 		}
 	}
 }

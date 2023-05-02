@@ -1,14 +1,14 @@
 import { Database } from '@/database'
 
 export type Options = {
-	database: Database
-	jwtSecretKey: string
+  database: Database
+  jwtSecretKey: string
 
-	// In seconds
-	jwtDuration: number
+  // In seconds
+  jwtDuration: number
 }
 
 export type AuthContext = {
-	uuid: string
-	email: string
+  uuid: string
+  email: string
 }

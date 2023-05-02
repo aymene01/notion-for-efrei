@@ -1,8 +1,8 @@
-import { Toaster } from "react-hot-toast";
+import { Toaster } from 'react-hot-toast'
 
 type ToastProviderProps = {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
 export const ToastProvider = ({ children }: ToastProviderProps) => {
   return (
@@ -15,5 +15,5 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
       />
       {children}
     </>
-  );
-};
+  )
+}
