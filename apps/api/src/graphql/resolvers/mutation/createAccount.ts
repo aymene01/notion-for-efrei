@@ -1,5 +1,5 @@
 import { MutationResolvers, UserAuthenticated } from '@efrei/graphql'
-import { Context } from '@/graphql/createServer'
+import { Context } from '@/graphql/context'
 
 export const createAccount: MutationResolvers<Context>['createAccount'] = async (
   _,

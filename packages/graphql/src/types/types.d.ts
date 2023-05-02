@@ -10,6 +10,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Date: any;
+  JSON: any;
 };
 
 export type Hello = {
@@ -25,7 +27,10 @@ export type Meta = {
 export type Mutation = {
   __typename?: 'Mutation';
   createAccount: UserAuthenticated;
+  createPost: Post;
   createSession: UserAuthenticated;
+  deletePost: Post;
+  updatePost: Post;
 };
 
 
@@ -36,14 +41,56 @@ export type MutationCreateAccountArgs = {
 };
 
 
+export type MutationCreatePostArgs = {
+  authorUuid: Scalars['String'];
+  content?: InputMaybe<Scalars['String']>;
+  title: Scalars['String'];
+};
+
+
 export type MutationCreateSessionArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
 };
 
+
+export type MutationDeletePostArgs = {
+  uuid: Scalars['String'];
+};
+
+
+export type MutationUpdatePostArgs = {
+  content?: InputMaybe<Scalars['String']>;
+  title: Scalars['String'];
+  uuid: Scalars['String'];
+};
+
+export type Post = {
+  __typename?: 'Post';
+  author?: Maybe<User>;
+  authorUuid?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['JSON']>;
+  createdAt: Scalars['Date'];
+  title: Scalars['String'];
+  updatedAt: Scalars['Date'];
+  uuid: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
+  getAllPosts: Array<Post>;
+  getPost: Post;
   hello: Hello;
+};
+
+
+export type QueryGetAllPostsArgs = {
+  authorUuid: Scalars['String'];
+};
+
+
+export type QueryGetPostArgs = {
+  uuid: Scalars['String'];
 };
 
 export type User = {
@@ -51,6 +98,7 @@ export type User = {
   email: Scalars['String'];
   name: Scalars['String'];
   password: Scalars['String'];
+  posts?: Maybe<Array<Post>>;
   uuid: Scalars['String'];
 };
 

@@ -1,4 +1,4 @@
-import { Context } from '@/graphql/createServer'
+import { Context } from '@/graphql/context'
 import { MutationCreateSessionArgs, MutationResolvers, UserAuthenticated } from '@efrei/graphql'
 
 export const createSession: MutationResolvers<Context>['createSession'] = async (

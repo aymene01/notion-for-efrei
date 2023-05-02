@@ -11,8 +11,23 @@ datasource db {
 }
 
 model User {
-  uuid     String @id @default(uuid())
-  email    String @unique
-  password String
-  name     String
+  uuid      String  @id @default(uuid())
+  email     String  @unique
+  password  String
+  name      String
+  posts     Post[]
+  isPremium Boolean @default(false) @map(name: "is_premium")
+}
+
+model Post {
+  uuid       String   @id @default(cuid())
+  title      String
+  content    Json?
+  createdAt  DateTime @default(now()) @map(name: "created_at")
+  updatedAt  DateTime @default(now()) @map(name: "updated_at")
+  authorUuid String
+
+  author User @relation(fields: [authorUuid], references: [uuid])
+
+  @@map(name: "posts")
 }

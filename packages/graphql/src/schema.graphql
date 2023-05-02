@@ -1,8 +1,12 @@
+scalar JSON
+scalar Date
+
 type User {
   uuid: String!
   name: String!
   email: String!
   password: String!
+  posts: [Post!]
 }
 
 type Meta {
@@ -20,9 +24,24 @@ type Hello {
 
 type Query {
   hello: Hello!
+  getPost(uuid: String!): Post!
+  getAllPosts(authorUuid: String!): [Post!]!
+}
+
+type Post {
+  uuid: String!
+  title: String!
+  content: JSON
+  createdAt: Date!
+  updatedAt: Date!
+  author: User
+  authorUuid: String
 }
 
 type Mutation {
   createAccount(name: String!, email: String!, password: String!): UserAuthenticated!
   createSession(email: String!, password: String!): UserAuthenticated!
+  createPost(authorUuid: String!, title: String!, content: String): Post!
+  deletePost(uuid: String!): Post!
+  updatePost(uuid: String!, title: String!, content: String): Post!
 }

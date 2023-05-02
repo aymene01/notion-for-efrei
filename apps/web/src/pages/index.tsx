@@ -36,7 +36,7 @@ export default function Home() {
         onClick={() =>
           mutate({
             email: 'hello',
-            password: '',
+            password: 'hello',
           })
         }
       >

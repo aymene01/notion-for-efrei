@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 
 
@@ -72,9 +72,12 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Date: ResolverTypeWrapper<Scalars['Date']>;
   Hello: ResolverTypeWrapper<Hello>;
+  JSON: ResolverTypeWrapper<Scalars['JSON']>;
   Meta: ResolverTypeWrapper<Meta>;
   Mutation: ResolverTypeWrapper<{}>;
+  Post: ResolverTypeWrapper<Post>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   User: ResolverTypeWrapper<User>;
@@ -84,19 +87,30 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
+  Date: Scalars['Date'];
   Hello: Hello;
+  JSON: Scalars['JSON'];
   Meta: Meta;
   Mutation: {};
+  Post: Post;
   Query: {};
   String: Scalars['String'];
   User: User;
   UserAuthenticated: UserAuthenticated;
 };
 
+export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
+  name: 'Date';
+}
+
 export type HelloResolvers<ContextType = any, ParentType extends ResolversParentTypes['Hello'] = ResolversParentTypes['Hello']> = {
   message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
+
+export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSON'], any> {
+  name: 'JSON';
+}
 
 export type MetaResolvers<ContextType = any, ParentType extends ResolversParentTypes['Meta'] = ResolversParentTypes['Meta']> = {
   token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -105,10 +119,26 @@ export type MetaResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createAccount?: Resolver<ResolversTypes['UserAuthenticated'], ParentType, ContextType, RequireFields<MutationCreateAccountArgs, 'email' | 'name' | 'password'>>;
+  createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationCreatePostArgs, 'authorUuid' | 'title'>>;
   createSession?: Resolver<ResolversTypes['UserAuthenticated'], ParentType, ContextType, RequireFields<MutationCreateSessionArgs, 'email' | 'password'>>;
+  deletePost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationDeletePostArgs, 'uuid'>>;
+  updatePost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationUpdatePostArgs, 'title' | 'uuid'>>;
+};
+
+export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
+  author?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  authorUuid?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  content?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  uuid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  getAllPosts?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryGetAllPostsArgs, 'authorUuid'>>;
+  getPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<QueryGetPostArgs, 'uuid'>>;
   hello?: Resolver<ResolversTypes['Hello'], ParentType, ContextType>;
 };
 
@@ -116,6 +146,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   password?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  posts?: Resolver<Maybe<Array<ResolversTypes['Post']>>, ParentType, ContextType>;
   uuid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -127,9 +158,12 @@ export type UserAuthenticatedResolvers<ContextType = any, ParentType extends Res
 };
 
 export type Resolvers<ContextType = any> = {
+  Date?: GraphQLScalarType;
   Hello?: HelloResolvers<ContextType>;
+  JSON?: GraphQLScalarType;
   Meta?: MetaResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  Post?: PostResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   UserAuthenticated?: UserAuthenticatedResolvers<ContextType>;
