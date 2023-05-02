@@ -9,21 +9,9 @@ import createSession from '@/lib/queries/createSession'
 
 export default function Home() {
   const { data } = useSwrQuery<Hello, 'hello'>('hello', hello)
-  const { mutate, data: loginData, isError } = useSwrMutation<UserAuthenticated, 'createSession'>(createSession)
+  //const { mutate, data: loginData, isError } = useSwrMutation<UserAuthenticated, 'createSession'>(createSession)
 
   const notify = () => toast.success('We are live! 🚀')
-
-  React.useEffect(() => {
-    if (loginData) {
-      toast.success(`Welcome ${loginData.createSession.user.email}!`)
-    }
-  }, [loginData])
-
-  React.useEffect(() => {
-    if (isError) {
-      toast.error('Invalid credentials')
-    }
-  }, [isError])
 
   return (
     <div className="w-screen h-screen flex justify-center items-center flex-col space-y-5">
@@ -32,16 +20,6 @@ export default function Home() {
       </h1>
       {data && <p className="text text-2xl font-light">{data.hello.message}</p>}
       <Button onClick={notify}>Get Started</Button>
-      <Button
-        onClick={() =>
-          mutate({
-            email: 'hello',
-            password: 'hello',
-          })
-        }
-      >
-        Test login
-      </Button>
     </div>
   )
 }
