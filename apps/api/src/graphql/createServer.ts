@@ -9,16 +9,17 @@ import { json } from 'body-parser'
 import { promisify } from 'util'
 import { Options } from './types'
 import { resolvers } from './resolvers'
+import { Business } from '@/business/createBusiness'
 
-interface MyContext {
-  token?: String
+export interface Context {
+  business: Business
 }
 
 export const createServer = async (opts: Options) => {
   const app = express()
   const httpServer = http.createServer(app)
 
-  const server = new ApolloServer<MyContext>({
+  const server = new ApolloServer<Context>({
     typeDefs: opts.typeDefs,
     resolvers,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
@@ -29,7 +30,9 @@ export const createServer = async (opts: Options) => {
     cors<cors.CorsRequest>(),
     json(),
     expressMiddleware(server, {
-      context: async ({ req }) => ({ token: req.headers.token }),
+      context: async ({ req }) => ({
+        business: opts.business,
+      }),
     }),
   )
 

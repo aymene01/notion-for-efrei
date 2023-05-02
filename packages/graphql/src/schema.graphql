@@ -1,3 +1,24 @@
+type User {
+  uuid: String!
+  name: String!
+  email: String!
+  password: String!
+}
+
+type Meta {
+  token: String!
+}
+
+type UserAuthenticated {
+  user: User!
+  meta: Meta!
+}
+
 type Query {
-	hello: String
+  hello: String
+}
+
+type Mutation {
+  createAccount(name: String!, email: String!, password: String!): UserAuthenticated!
+  createSession(email: String!, password: String!): UserAuthenticated!
 }

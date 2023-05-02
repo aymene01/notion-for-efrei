@@ -7,7 +7,7 @@ type DatabaseOption = {
   connectionPoolSize: number
   queryTimeout: number
 }
-declare const global: typeof globalThis & { prisma?: PrismaClient }
+declare const global: typeof globalThis & { prisma: PrismaClient }
 
 export function connectDatabase(opts: DatabaseOption) {
   const url = new URL(opts.databaseUrl)
