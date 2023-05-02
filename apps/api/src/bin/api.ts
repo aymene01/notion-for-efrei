@@ -39,9 +39,10 @@ const api = async (logger: Logger) => {
     typeDefs: fs.readFileSync(Env.GRAPHQL_SCHEMA_PATH, 'utf-8'),
   })
 
-  await graphqlServer.start()
   await database.start()
+  await graphqlServer.start()
   await waitForSignal(['SIGINT', 'SIGTERM'])
+  logger.info('👋 Shut down the server!')
   await graphqlServer.stop()
   await database.stop()
 }
