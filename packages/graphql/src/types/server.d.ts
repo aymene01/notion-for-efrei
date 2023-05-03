@@ -138,6 +138,7 @@ export type PostResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getAllPosts?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType>;
+  getMe?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   getPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<QueryGetPostArgs, 'uuid'>>;
   hello?: Resolver<ResolversTypes['Hello'], ParentType, ContextType>;
 };
