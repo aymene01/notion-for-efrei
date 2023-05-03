@@ -78,6 +78,7 @@ export type Post = {
 export type Query = {
   __typename?: 'Query';
   getAllPosts: Array<Post>;
+  getMe: User;
   getPost: Post;
   hello: Hello;
 };

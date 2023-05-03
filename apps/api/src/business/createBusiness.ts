@@ -7,6 +7,7 @@ import { deletePost } from './domains/post/deletePost'
 import { getPost } from './domains/post/getPost'
 import { getAllPosts } from './domains/post/getAllPosts'
 import { getAuthContext } from './domains/auth/getAuthContext'
+import { getMe } from './domains/user/getMe'
 import { Context } from '@/graphql/context'
 
 export const createBusiness = (opts: Options) => {
@@ -23,6 +24,7 @@ export const createBusiness = (opts: Options) => {
     getPost: partialiseProtect(getPost),
     getAllPosts: partialiseProtect(getAllPosts),
     getAuthContext: partialise(getAuthContext),
+    getMe: partialiseProtect(getMe),
   }
 }
 

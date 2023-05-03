@@ -26,6 +26,7 @@ type Query {
   hello: Hello!
   getPost(uuid: String!): Post!
   getAllPosts: [Post!]!
+  getMe: User!
 }
 
 type Post {
