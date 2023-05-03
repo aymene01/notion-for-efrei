@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "esbuild src/bin/api.ts --bundle --platform=node --target=node14 --outfile=dist/api.js",
+    "build": "tsup src/bin/api.ts --format cjs,esm --dts",
     "dev": "npx prisma generate && nodemon --delay 1000ms --exec 'node -r esbuild-register src/bin/api.ts' -e .ts",
     "test": "vitest --run",
     "lint": "eslint --ext .ts",
