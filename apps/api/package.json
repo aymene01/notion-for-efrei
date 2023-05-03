@@ -8,7 +8,8 @@
     "dev": "npx prisma generate && nodemon --delay 1000ms --exec 'node -r esbuild-register src/bin/api.ts' -e .ts",
     "test": "vitest --run",
     "lint": "eslint --ext .ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "generate": "npx prisma generate"
   },
   "keywords": [],
   "author": "",
