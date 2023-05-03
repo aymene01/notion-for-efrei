@@ -23,6 +23,7 @@ jobs:
       - run: pnpm run build
 
   lint:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -38,6 +39,7 @@ jobs:
       - run: pnpm run lint
 
   typechek:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -53,6 +55,7 @@ jobs:
       - run: pnpm run typecheck
 
   ci:
+    needs: [build, lint, typechek]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
