@@ -6,6 +6,8 @@ import { createPost } from './domains/post/createPost'
 import { deletePost } from './domains/post/deletePost'
 import { getPost } from './domains/post/getPost'
 import { getAllPosts } from './domains/post/getAllPosts'
+import { getAuthContext } from './domains/auth/getAuthContext'
+import { getPermissions } from './domains/auth/getPermission'
 
 export const createBusiness = (opts: Options) => {
   return {
@@ -15,6 +17,8 @@ export const createBusiness = (opts: Options) => {
     deletePost: partial(deletePost, opts),
     getPost: partial(getPost, opts),
     getAllPosts: partial(getAllPosts, opts),
+    getAuthContext: partial(getAuthContext, opts),
+    getPermissions: partial(getPermissions, opts),
   }
 }
 

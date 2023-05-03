@@ -25,7 +25,7 @@ type Hello {
 type Query {
   hello: Hello!
   getPost(uuid: String!): Post!
-  getAllPosts(authorUuid: String!): [Post!]!
+  getAllPosts: [Post!]!
 }
 
 type Post {
@@ -41,7 +41,7 @@ type Post {
 type Mutation {
   createAccount(name: String!, email: String!, password: String!): UserAuthenticated!
   createSession(email: String!, password: String!): UserAuthenticated!
-  createPost(authorUuid: String!, title: String!, content: String): Post!
+  createPost(title: String!, content: String): Post!
   deletePost(uuid: String!): Post!
   updatePost(uuid: String!, title: String!, content: String): Post!
 }

@@ -119,7 +119,7 @@ export type MetaResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createAccount?: Resolver<ResolversTypes['UserAuthenticated'], ParentType, ContextType, RequireFields<MutationCreateAccountArgs, 'email' | 'name' | 'password'>>;
-  createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationCreatePostArgs, 'authorUuid' | 'title'>>;
+  createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationCreatePostArgs, 'title'>>;
   createSession?: Resolver<ResolversTypes['UserAuthenticated'], ParentType, ContextType, RequireFields<MutationCreateSessionArgs, 'email' | 'password'>>;
   deletePost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationDeletePostArgs, 'uuid'>>;
   updatePost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationUpdatePostArgs, 'title' | 'uuid'>>;
@@ -137,7 +137,7 @@ export type PostResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  getAllPosts?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryGetAllPostsArgs, 'authorUuid'>>;
+  getAllPosts?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType>;
   getPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<QueryGetPostArgs, 'uuid'>>;
   hello?: Resolver<ResolversTypes['Hello'], ParentType, ContextType>;
 };

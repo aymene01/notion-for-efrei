@@ -14,3 +14,7 @@ export const comparePassword = async (password: string, hash: string): Promise<b
 export const generateToken = (opts: Options, payload: Record<string, unknown>) => {
   return jwt.sign(payload, opts.jwtSecretKey)
 }
+
+export const verifyToken = (opts: Options, token: string) => {
+  return jwt.verify(token, opts.jwtSecretKey)
+}

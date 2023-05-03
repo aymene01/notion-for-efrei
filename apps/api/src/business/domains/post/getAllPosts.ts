@@ -1,10 +1,11 @@
 import { Options } from '@/business/types'
-import { QueryGetAllPostsArgs, Post } from '@efrei/graphql'
+import { Context } from '@/graphql/context'
+import { Post } from '@efrei/graphql'
 
-export const getAllPosts = async (opts: Options, req: QueryGetAllPostsArgs): Promise<Post[]> => {
+export const getAllPosts = async (opts: Options, ctx: Context): Promise<Post[]> => {
   const posts = await opts.database.prisma.post.findMany({
     where: {
-      authorUuid: req.authorUuid,
+      authorUuid: ctx.userUuid,
     },
     include: {
       author: true,

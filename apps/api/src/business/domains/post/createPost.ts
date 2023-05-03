@@ -1,10 +1,12 @@
 import { MutationCreatePostArgs, Post } from '@efrei/graphql'
 import { Options } from '@/business/types'
+import { Context } from '@/graphql/context'
 
-export const createPost = async (opts: Options, req: MutationCreatePostArgs): Promise<Post> => {
+export const createPost = async (opts: Options, req: MutationCreatePostArgs, ctx: Context): Promise<Post> => {
+  console.log('createPost', ctx.userUuid)
   const user = await opts.database.prisma.user.findUnique({
     where: {
-      uuid: req.authorUuid,
+      uuid: ctx.userUuid,
     },
   })
 

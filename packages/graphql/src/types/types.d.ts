@@ -42,7 +42,6 @@ export type MutationCreateAccountArgs = {
 
 
 export type MutationCreatePostArgs = {
-  authorUuid: Scalars['String'];
   content?: InputMaybe<Scalars['String']>;
   title: Scalars['String'];
 };
@@ -81,11 +80,6 @@ export type Query = {
   getAllPosts: Array<Post>;
   getPost: Post;
   hello: Hello;
-};
-
-
-export type QueryGetAllPostsArgs = {
-  authorUuid: Scalars['String'];
 };
 
 
