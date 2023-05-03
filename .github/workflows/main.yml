@@ -55,7 +55,7 @@ jobs:
       - run: pnpm run typecheck
 
   ci:
-    needs: [build, lint, typechek]
+    needs: [lint, typechek]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
