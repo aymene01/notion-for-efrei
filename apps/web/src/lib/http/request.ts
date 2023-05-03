@@ -24,9 +24,9 @@ const safeFetchQL = ({ apiBaseUrl = API_URL, query, variables = {} }: FetchArgsQ
 
 const request = async (args: FetchArgsQl): Promise<unknown> => {
   try {
-    return safeFetchQL(args)
+    return await safeFetchQL(args)
   } catch (err: any) {
-    throw err.response.errors[0].message
+    throw new Error(err.response.errors[0].message)
   }
 }
 

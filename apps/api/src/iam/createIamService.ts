@@ -1,7 +1,7 @@
 import { Options } from './types'
 import * as auth from './auth'
 import { partial } from 'lodash'
-import { getPermissions } from './middleware'
+import { protect } from './protect'
 
 export const createIamService = (opts: Options) => {
   return {
@@ -9,7 +9,7 @@ export const createIamService = (opts: Options) => {
     comparePassword: auth.comparePassword,
     generateToken: partial(auth.generateToken, opts),
     verifyToken: partial(auth.verifyToken, opts),
-    getPermissions,
+    protect,
   }
 }
 

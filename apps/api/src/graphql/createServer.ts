@@ -11,7 +11,6 @@ import { resolvers } from './resolvers'
 import { createContext, Context } from './context'
 import { partial } from 'lodash'
 import { makeExecutableSchema } from '@graphql-tools/schema'
-import { applyMiddleware } from 'graphql-middleware'
 
 export const createServer = async (opts: Options) => {
   const context = partial(createContext, opts)
@@ -19,9 +18,7 @@ export const createServer = async (opts: Options) => {
   const app = express()
   const httpServer = http.createServer(app)
 
-  const permissions = opts.business.getPermissions()
-
-  const schema = applyMiddleware(makeExecutableSchema({ typeDefs: opts.typeDefs, resolvers }), permissions)
+  const schema = makeExecutableSchema({ typeDefs: opts.typeDefs, resolvers })
 
   const server = new ApolloServer<Context>({
     schema,

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.6.0",
+    "@efrei/graphql": "*",
     "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.8",
     "@tanstack/react-query": "^4.29.5",
@@ -27,10 +28,10 @@
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-hot-toast": "^2.4.1",
     "tailwindcss": "3.3.2",
-    "typescript": "^4.9.5",
-    "@efrei/graphql": "*"
+    "typescript": "^4.9.5"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.194"

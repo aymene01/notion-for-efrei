@@ -7,18 +7,22 @@ import { deletePost } from './domains/post/deletePost'
 import { getPost } from './domains/post/getPost'
 import { getAllPosts } from './domains/post/getAllPosts'
 import { getAuthContext } from './domains/auth/getAuthContext'
-import { getPermissions } from './domains/auth/getPermission'
+import { Context } from '@/graphql/context'
 
 export const createBusiness = (opts: Options) => {
+  const { protect } = opts.iamService
+
+  const partialise = <T, U>(fn: (opts: Options, args: U) => T) => partial(fn, opts)
+  const partialiseProtect = <T, U>(fn: (opts: Options, args: U, ctx: Context) => T) => partial(protect(fn), opts)
+
   return {
-    createAccount: partial(createAccount, opts),
-    createSession: partial(createSession, opts),
-    createPost: partial(createPost, opts),
-    deletePost: partial(deletePost, opts),
-    getPost: partial(getPost, opts),
-    getAllPosts: partial(getAllPosts, opts),
-    getAuthContext: partial(getAuthContext, opts),
-    getPermissions: partial(getPermissions, opts),
+    createAccount: partialise(createAccount),
+    createSession: partialise(createSession),
+    createPost: partialiseProtect(createPost),
+    deletePost: partialiseProtect(deletePost),
+    getPost: partialiseProtect(getPost),
+    getAllPosts: partialiseProtect(getAllPosts),
+    getAuthContext: partialise(getAuthContext),
   }
 }
 
