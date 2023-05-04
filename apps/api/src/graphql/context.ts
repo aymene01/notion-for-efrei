@@ -15,10 +15,10 @@ export const createContext = async (opts: Options, req: ExpressContextFunctionAr
     business,
   }
 
-  const { user } = business.getAuthContext(req)
+  const { payload } = business.getAuthContext(req)
 
-  if (!isEmpty(user)) {
-    const { id } = user
+  if (!isEmpty(payload)) {
+    const { id } = payload
     authContext['userUuid'] = id
   }
 

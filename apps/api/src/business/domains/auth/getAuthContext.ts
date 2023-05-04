@@ -3,7 +3,7 @@ import { ExpressContextFunctionArgument } from '@apollo/server/dist/esm/express4
 import { JwtPayload } from 'jsonwebtoken'
 
 export type AuthContext = {
-  user?: JwtPayload
+  payload?: JwtPayload
 }
 
 export const getAuthContext = (opts: Options, ctx: ExpressContextFunctionArgument): AuthContext => {
@@ -16,9 +16,9 @@ export const getAuthContext = (opts: Options, ctx: ExpressContextFunctionArgumen
   const [, token] = req.headers.authorization.split(' ')
 
   try {
-    const user = opts.iamService.verifyToken(token) as JwtPayload
+    const payload = opts.iamService.verifyToken(token) as JwtPayload
     return {
-      user,
+      payload,
     }
   } catch (error) {
     return {}

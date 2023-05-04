@@ -44,5 +44,5 @@ type Mutation {
   createSession(email: String!, password: String!): UserAuthenticated!
   createPost(title: String!, content: String): Post!
   deletePost(uuid: String!): Post!
-  updatePost(uuid: String!, title: String!, content: String): Post!
+  updatePost(uuid: String!, title: String, content: String): Post!
 }

@@ -10,7 +10,6 @@ import { Options } from './types'
 import { resolvers } from './resolvers'
 import { createContext, Context } from './context'
 import { partial } from 'lodash'
-import { makeExecutableSchema } from '@graphql-tools/schema'
 
 export const createServer = async (opts: Options) => {
   const context = partial(createContext, opts)
@@ -18,10 +17,9 @@ export const createServer = async (opts: Options) => {
   const app = express()
   const httpServer = http.createServer(app)
 
-  const schema = makeExecutableSchema({ typeDefs: opts.typeDefs, resolvers })
-
   const server = new ApolloServer<Context>({
-    schema,
+    typeDefs: opts.typeDefs,
+    resolvers,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   })
 

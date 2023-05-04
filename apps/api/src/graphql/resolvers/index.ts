@@ -7,6 +7,7 @@ import { deletePost } from './mutation/deletePost'
 import { getPost } from './query/getPost'
 import { getAllPosts } from './query/getAllPosts'
 import { getMe } from './query/getMe'
+import { updatePost } from './mutation/updatePost'
 
 export const resolvers: Resolvers = {
   Query: {
@@ -20,5 +21,6 @@ export const resolvers: Resolvers = {
     createSession,
     createPost,
     deletePost,
+    updatePost,
   },
 }

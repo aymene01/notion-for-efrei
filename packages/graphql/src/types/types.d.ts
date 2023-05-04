@@ -60,7 +60,7 @@ export type MutationDeletePostArgs = {
 
 export type MutationUpdatePostArgs = {
   content?: InputMaybe<Scalars['String']>;
-  title: Scalars['String'];
+  title?: InputMaybe<Scalars['String']>;
   uuid: Scalars['String'];
 };
 
