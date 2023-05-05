@@ -17,6 +17,18 @@ export const getAuthContext = (opts: Options, ctx: ExpressContextFunctionArgumen
 
   try {
     const payload = opts.iamService.verifyToken(token) as JwtPayload
+    const { id } = payload
+
+    if (!id) return {}
+
+    const user = opts.database.prisma.user.findUnique({
+      where: {
+        uuid: id,
+      },
+    })
+
+    if (!user) return {}
+
     return {
       payload,
     }
