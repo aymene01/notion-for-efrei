@@ -2,15 +2,15 @@ import { MutationUpdatePostArgs, Post } from '@efrei/graphql'
 import { Options } from '@/business/types'
 import { Context } from '@/graphql/context'
 
-export const updatePost = async (opts: Options, req: MutationUpdatePostArgs, ctx: Context): Promise<Post> => {
-  const user = await opts.database.prisma.user.findUnique({
+export const updatePost = async (opts: Options, req: MutationUpdatePostArgs, _ctx: Context): Promise<Post> => {
+  const postToUpdate = await opts.database.prisma.post.findUnique({
     where: {
-      uuid: ctx.userUuid,
+      uuid: req.uuid,
     },
   })
 
-  if (!user) {
-    throw new Error('User not found')
+  if (!postToUpdate) {
+    throw new Error('Post not found')
   }
 
   const post = await opts.database.prisma.post.update({

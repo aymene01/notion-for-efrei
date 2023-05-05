@@ -9,5 +9,6 @@ export const protect =
     if (!ctx.userUuid) {
       throw new Error('Unauthorized')
     }
+
     return fn(opts, args, ctx)
   }
