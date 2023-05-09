@@ -92,7 +92,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     } else if (!state.isAuth && !unauthenticatedRoutes.includes(currentRoute)) {
       push('/auth/login')
     }
-    setIsReady(true)
   }
 
   React.useEffect(() => {
