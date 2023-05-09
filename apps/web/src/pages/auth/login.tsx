@@ -5,6 +5,7 @@ import createSession from '@/lib/queries/createSession'
 import useSwrMutation from '@/lib/hooks/useSwrMutation'
 import { UserAuthenticated } from '@efrei/graphql'
 import { toast } from 'react-hot-toast'
+import { useUser } from '@/lib/context/user'
 
 type LoginRequest = {
   email: string
@@ -14,7 +15,9 @@ type LoginRequest = {
 const Login = () => {
   const [show, setShow] = React.useState<boolean>(false)
   const { register, handleSubmit } = useForm<LoginRequest>()
-  const { mutate, isSuccess, error } = useSwrMutation<UserAuthenticated, 'createSession'>(createSession)
+  const { mutate, isSuccess, error, data } = useSwrMutation<UserAuthenticated, 'createSession'>(createSession)
+
+  const { login } = useUser()
 
   const handleCreateAccount = (data: LoginRequest) => {
     mutate(data)
@@ -24,7 +27,12 @@ const Login = () => {
 
   React.useEffect(() => {
     if (isSuccess) {
-      toast.success('Valid credentials')
+      const {
+        meta: { token },
+        user,
+      } = data.createSession
+
+      login({ user }, token)
     }
   }, [isSuccess])
 
