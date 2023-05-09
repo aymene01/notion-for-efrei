@@ -35,10 +35,9 @@ const reducer = (state: State, action: Action) => {
       localStorage.removeItem('user')
       return { ...state, isAuth: false }
     case 'UPDATE':
-    case 'UPDATE':
       const updates = {
         ...state,
-        ...omit(action.payload, 'isAuthenticated'),
+        ...omit(action.payload, 'isAuth'),
       }
       if (!isEmpty(updates)) {
         localStorage.setItem('user', JSON.stringify(updates))
@@ -62,7 +61,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const [isReady, setIsReady] = React.useState<boolean>(false)
   const { run, isIdle, isLoading } = useAsync()
 
-  const { push } = useRouter()
+  const { push, pathname } = useRouter()
 
   const values = React.useMemo(
     () => ({
@@ -72,6 +71,9 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     }),
     [state, isReady],
   )
+
+  const unauthenticatedRoutes = ['/auth/login', '/auth/register']
+  const currentRoute = pathname
 
   const getMe = async () => {
     const token = localStorage.getItem('token')
@@ -85,12 +87,11 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   }
 
   const handleRoutes = async () => {
-    if (!state.isAuth) {
-      push('/auth/login')
-    } else {
+    if (state.isAuth && unauthenticatedRoutes.includes(currentRoute)) {
       push('/app')
+    } else if (!state.isAuth && !unauthenticatedRoutes.includes(currentRoute)) {
+      push('/auth/login')
     }
-
     setIsReady(true)
   }
 
@@ -110,7 +111,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     }
   }, [isIdle, isLoading])
 
-  console.log(isIdle, isLoading, isReady)
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>
 }
 

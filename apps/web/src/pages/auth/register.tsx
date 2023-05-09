@@ -5,6 +5,7 @@ import { toast } from 'react-hot-toast'
 import { UserAuthenticated } from '@efrei/graphql'
 import createAccount from '@/lib/queries/createAccount'
 import useSwrMutation from '@/lib/hooks/useSwrMutation'
+import { useRouter } from 'next/router'
 
 type RegisterRequest = {
   name: string
@@ -15,6 +16,7 @@ type RegisterRequest = {
 const Register = () => {
   const { register, handleSubmit } = useForm<RegisterRequest>()
   const { mutate, isSuccess, error } = useSwrMutation<UserAuthenticated, 'createAccount'>(createAccount)
+  const router = useRouter()
 
   const handleCreateAccount = (data: RegisterRequest) => {
     mutate(data)
@@ -23,6 +25,7 @@ const Register = () => {
   React.useEffect(() => {
     if (isSuccess) {
       toast.success('Account created')
+      router.push('/auth/login')
     }
   }, [isSuccess])
 
