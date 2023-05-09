@@ -14,7 +14,7 @@ type LoginRequest = {
 const Login = () => {
   const [show, setShow] = React.useState<boolean>(false)
   const { register, handleSubmit } = useForm<LoginRequest>()
-  const { mutate, isSuccess, isError, error } = useSwrMutation<UserAuthenticated, 'createSession'>(createSession)
+  const { mutate, isSuccess, error } = useSwrMutation<UserAuthenticated, 'createSession'>(createSession)
 
   const handleCreateAccount = (data: LoginRequest) => {
     mutate(data)
@@ -26,10 +26,13 @@ const Login = () => {
     if (isSuccess) {
       toast.success('Valid credentials')
     }
+  }, [isSuccess])
+
+  React.useEffect(() => {
     if (error) {
       toast.error(error.message)
     }
-  }, [isSuccess, error])
+  }, [error])
 
   return (
     <div className="w-screen h-screen flex justify-center items-center flex-col space-y-4">
