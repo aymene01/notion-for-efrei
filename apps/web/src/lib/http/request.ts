@@ -10,8 +10,8 @@ type FetchArgsQl = {
 const API_URL = 'http://localhost:8080/api/v1'
 
 const safeFetchQL = ({ apiBaseUrl = API_URL, query, variables = {} }: FetchArgsQl): Promise<unknown> => {
-  const { publicRuntimeConfig } = getConfig()
-  const jswt = localStorage.getItem(publicRuntimeConfig.keyPrefixJswt)
+  // const { publicRuntimeConfig } = getConfig()
+  const jswt = localStorage.getItem('token')
 
   const options: Record<string, any> = { headers: {} }
   if (jswt) {

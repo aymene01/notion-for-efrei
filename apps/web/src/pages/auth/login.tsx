@@ -6,6 +6,7 @@ import useSwrMutation from '@/lib/hooks/useSwrMutation'
 import { UserAuthenticated } from '@efrei/graphql'
 import { toast } from 'react-hot-toast'
 import { useUser } from '@/lib/context/user'
+import Link from 'next/link'
 
 type LoginRequest = {
   email: string
@@ -13,11 +14,15 @@ type LoginRequest = {
 }
 
 const Login = () => {
-  const [show, setShow] = React.useState<boolean>(false)
   const { register, handleSubmit } = useForm<LoginRequest>()
-  const { mutate, isSuccess, error, data } = useSwrMutation<UserAuthenticated, 'createSession'>(createSession)
+  const { mutate, isSuccess, data } = useSwrMutation<UserAuthenticated, 'createSession'>(createSession, {
+    onError: (error: Record<string, string>) => {
+      toast.error(error.message)
+    },
+  })
 
   const { login } = useUser()
+  const [show, setShow] = React.useState<boolean>(false)
 
   const handleCreateAccount = (data: LoginRequest) => {
     mutate(data)
@@ -36,20 +41,14 @@ const Login = () => {
     }
   }, [isSuccess])
 
-  React.useEffect(() => {
-    if (error) {
-      toast.error(error.message)
-    }
-  }, [error])
-
   return (
     <div className="w-screen h-screen flex justify-center items-center flex-col space-y-4">
       <Heading>Sign In</Heading>
-      <div className="flex items-center justify-center flex-col w-1/4 space-y-4">
+      <div className="flex items-center justify-center flex-col w-2/4 space-y-4">
         <div className="space-y-2">
-          <Input placeholder="Email" {...register('email')} />
+          <Input width="96" placeholder="Email" {...register('email')} />
           <InputGroup>
-            <Input placeholder="Password" {...register('password')} type={show ? 'text' : 'password'} />
+            <Input width="96" placeholder="Password" {...register('password')} type={show ? 'text' : 'password'} />
             <InputRightElement width="4.5rem">
               <Button h="1.75rem" size="sm" onClick={handleToggle}>
                 {show ? 'Hide' : 'Show'}
@@ -59,6 +58,9 @@ const Login = () => {
         </div>
         <Button onClick={handleSubmit(handleCreateAccount)}>Sign In</Button>
       </div>
+      <Link href="/auth/register">
+        <p className="text-blue-500">Do not have an account yet ?</p>
+      </Link>
     </div>
   )
 }

@@ -6,6 +6,7 @@ import { UserAuthenticated } from '@efrei/graphql'
 import createAccount from '@/lib/queries/createAccount'
 import useSwrMutation from '@/lib/hooks/useSwrMutation'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 type RegisterRequest = {
   name: string
@@ -14,26 +15,21 @@ type RegisterRequest = {
 }
 
 const Register = () => {
+  const { push } = useRouter()
   const { register, handleSubmit } = useForm<RegisterRequest>()
-  const { mutate, isSuccess, error } = useSwrMutation<UserAuthenticated, 'createAccount'>(createAccount)
-  const router = useRouter()
+  const { mutate } = useSwrMutation<UserAuthenticated, 'createAccount'>(createAccount, {
+    onSuccess: () => {
+      toast.success('Account created')
+      push('/auth/login')
+    },
+    onError: (error: Record<string, string>) => {
+      toast.error(error.message)
+    },
+  })
 
   const handleCreateAccount = (data: RegisterRequest) => {
     mutate(data)
   }
-
-  React.useEffect(() => {
-    if (isSuccess) {
-      toast.success('Account created')
-      router.push('/auth/login')
-    }
-  }, [isSuccess])
-
-  React.useEffect(() => {
-    if (error) {
-      toast.error(error.message)
-    }
-  }, [error])
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
@@ -47,6 +43,9 @@ const Register = () => {
           </div>
           <Button onClick={handleSubmit(handleCreateAccount)}>Create Account</Button>
         </div>
+        <Link href="/auth/login">
+          <p className="text-blue-500">Already have an account?</p>
+        </Link>
       </div>
     </div>
   )
