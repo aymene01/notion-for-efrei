@@ -8,8 +8,8 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <Link className="text-white" href="/">
-                EFREI Paris
+              <Link className="text-white font-semibold" href="/">
+                Notion By Aymene Bousbia
               </Link>
             </div>
           </div>

@@ -2,7 +2,9 @@ import React from 'react'
 import { User as OriginalUser } from '@efrei/graphql'
 import { isEmpty, omit } from 'lodash'
 import { useRouter } from 'next/router'
-import useAsync from '../hooks/useAsync'
+import useAsync from '@/lib/hooks/useAsync'
+import useSwrQuery from '@/lib/hooks/useSwrQuery'
+import getMeQuery from '@/lib/queries/getMe'
 
 type ContextProps = {
   state: State
@@ -59,7 +61,8 @@ type UserProviderProps = {
 export const UserProvider = ({ children }: UserProviderProps) => {
   const [state, dispatch] = React.useReducer(reducer, null)
   const [isReady, setIsReady] = React.useState<boolean>(false)
-  const { run, isIdle, isLoading } = useAsync()
+  const { run, isIdle, isLoading, reset } = useAsync()
+
 
   const { push, pathname } = useRouter()
 
@@ -84,6 +87,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     } else {
       dispatch({ type: 'UPDATE', payload: { isAuth: false } })
     }
+
   }
 
   const handleRoutes = async () => {

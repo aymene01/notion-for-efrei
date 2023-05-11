@@ -4,6 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { ToastProvider } from '@/lib/context/toaster'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { UserProvider } from '@/lib/context/user'
+import Layout from '@/lib/layouts'
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient()
@@ -12,7 +13,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <ChakraProvider>
         <ToastProvider>
           <UserProvider>
-            <Component {...pageProps} />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
           </UserProvider>
         </ToastProvider>
       </ChakraProvider>

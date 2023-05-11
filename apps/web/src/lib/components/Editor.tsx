@@ -10,6 +10,7 @@ import { toast } from 'react-hot-toast'
 import { useQueryClient } from '@tanstack/react-query'
 
 import { ArrowSmallLeftIcon } from '@heroicons/react/24/solid'
+import { Button } from '@chakra-ui/react'
 
 interface EditorProps {
   post: Pick<Post, 'uuid' | 'title' | 'content'>
@@ -31,11 +32,11 @@ export const Editor = ({ post }: EditorProps) => {
 
   const { mutate } = useSwrMutation<Post, 'updatedPost'>(updatePost, {
     onSuccess: () => {
-      toast.success('Post updated')
+      toast.success('Post successfully saved', { position: 'top-center' })
       queryClient.invalidateQueries(['getAllPosts'])
     },
     onError: () => {
-      toast.error('Error updating post')
+      toast.error('An error occured while saving the post', { position: 'top-center' })
     },
   })
 
@@ -107,9 +108,9 @@ export const Editor = ({ post }: EditorProps) => {
               <span>Back</span>
             </Link>
           </div>
-          <button onClick={handleSubmit(onSubmit)} className="m-10">
-            <span>Save</span>
-          </button>
+          <Button onClick={handleSubmit(onSubmit)} className="m-10 ">
+            save
+          </Button>
         </div>
         <div className="prose prose-stone mx-auto w-[800px] dark:prose-invert">
           <TextareaAutosize
