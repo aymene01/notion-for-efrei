@@ -15,9 +15,10 @@ const Dashboard = () => {
   const { data, isLoading } = useSwrQuery<Post[], 'getAllPosts'>('getAllPosts', getAllPosts)
   const [query, setQuery] = React.useState('')
 
-  const filteredPosts = data?.getAllPosts.filter(post =>
-    post.title.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
-  )
+  const filteredPosts =
+    data.getAllPosts.filter(post =>
+      post.title.toLocaleLowerCase().trim().startsWith(query.toLocaleLowerCase().trim()),
+    ) || []
 
   if (isLoading) return null
 

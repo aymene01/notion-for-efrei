@@ -11,7 +11,7 @@ export const getInialProps = async ({ query }) => {
 }
 
 export default function PostEditor({ postId }) {
-  const { data, isLoading, error } = useSwrQuery<Post, 'getPost'>('getPost', getPost, {
+  const { data, isLoading } = useSwrQuery<Post, 'getPost'>('getPost', getPost, {
     uuid: postId,
   })
 
