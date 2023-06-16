@@ -26,8 +26,6 @@ export const Editor = ({ post }: EditorProps) => {
   const ref = React.useRef<EditorJS>()
   const [isMounted, setIsMounted] = React.useState<boolean>(false)
 
-  console.log(post.content)
-
   const queryClient = useQueryClient()
 
   const { mutate } = useSwrMutation<Post, 'updatedPost'>(updatePost, {

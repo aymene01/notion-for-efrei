@@ -10,7 +10,6 @@ import { getAuthContext } from './domains/auth/getAuthContext'
 import { getMe } from './domains/user/getMe'
 import { Context } from '@/graphql/context'
 import { updatePost } from './domains/post/updatePost'
-// import { apply } from './helpers/protect'
 
 export const createBusiness = (opts: Options) => {
   const { protect } = opts.iamService

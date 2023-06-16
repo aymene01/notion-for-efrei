@@ -16,14 +16,14 @@ const Dashboard = () => {
   const [query, setQuery] = React.useState('')
 
   const filteredPosts =
-    data.getAllPosts.filter(post =>
+    data?.getAllPosts.filter(post =>
       post.title.toLocaleLowerCase().trim().startsWith(query.toLocaleLowerCase().trim()),
     ) || []
 
   if (isLoading) return null
 
   return (
-    <div>
+    <div className="sm: w-full">
       <Navbar />
       {data && data.getAllPosts.length === 0 ? (
         <EmptyState />

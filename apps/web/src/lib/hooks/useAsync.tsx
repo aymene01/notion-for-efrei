@@ -12,6 +12,7 @@ type State<T> = {
 /**
  * @description a hook for using async calls with ease
  **/
+
 export const useAsync = <T,>(initialState: State<T> = { status: 'idle', data: null, error: null }) => {
   const initialStateRef = React.useRef(initialState)
 
