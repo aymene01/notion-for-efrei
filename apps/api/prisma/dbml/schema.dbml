@@ -1,0 +1,24 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  uuid String [pk]
+  email String [unique, not null]
+  password String [not null]
+  name String [not null]
+  posts posts [not null]
+  isPremium Boolean [not null, default: false]
+}
+
+Table posts {
+  uuid String [pk]
+  title String [not null]
+  content Json
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  authorUuid String [not null]
+  author User [not null]
+}
+
+Ref: posts.authorUuid > User.uuid

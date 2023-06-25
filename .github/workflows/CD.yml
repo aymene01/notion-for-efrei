@@ -1,4 +1,4 @@
-name: Deploy to AWS Elastic Beanstalk
+name: Deploy to EC2 Instance
 
 on:
   push:
@@ -20,19 +20,26 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: <aws-region> # Replace with your desired AWS region
 
+      - name: Install and configure Docker
+        run: |
+          sudo apt-get update
+          sudo apt-get install docker.io -y
+          sudo usermod -aG docker $USER
+
       - name: Build and push Docker images
         run: |
           docker build -t <image-name> .
           docker tag <image-name>:latest <aws-account-id>.dkr.ecr.<aws-region>.amazonaws.com/<image-name>:latest
           docker push <aws-account-id>.dkr.ecr.<aws-region>.amazonaws.com/<image-name>:latest
 
-      - name: Deploy to Elastic Beanstalk
+      - name: Connect to EC2 Instance
+        uses: appleboy/ssh-action@master
+        with:
+          host: <ec2-instance-ip>
+          username: <ec2-instance-username>
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to EC2 Instance
         run: |
-          aws elasticbeanstalk create-application-version \
-            --application-name <application-name> \
-            --version-label <version-label> \
-            --source-bundle S3Bucket=<s3-bucket>,S3Key=<s3-key>
-            
-          aws elasticbeanstalk update-environment \
-            --environment-name <environment-name> \
-            --version-label <version-label>
+          ssh <ec2-instance-username>@<ec2-instance-ip> 'docker pull <aws-account-id>.dkr.ecr.<aws-region>.amazonaws.com/<image-name>:latest'
+          ssh <ec2-instance-username>@<ec2-instance-ip> 'docker stop <container-name>'
