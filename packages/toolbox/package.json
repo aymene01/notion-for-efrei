@@ -2,8 +2,12 @@
 	"name": "@efrei/toolbox",
 	"version": "1.0.0",
 	"description": "",
-	"main": "",
-	"scripts": {},
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "module": "dist/index.mjs",
+	"scripts": {
+    "build": "tsup index.ts --dts --format cjs,esm --outDir dist"
+	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",

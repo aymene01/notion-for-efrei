@@ -12,7 +12,7 @@ declare const global: typeof globalThis & { prisma: PrismaClient }
 export function connectDatabase(opts: DatabaseOption) {
   const url = new URL(opts.databaseUrl)
 
-  url.searchParams.append('connection_limit', `${opts.queryTimeout}`)
+  url.searchParams.append('connection_limit', `${opts.connectionPoolSize}`)
   url.searchParams.append('pool_timeout', `${opts.queryTimeout}`)
 
   const prisma =
